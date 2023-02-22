@@ -3,3 +3,5 @@
 *venv
 *.pyc
 db.*
+/.DS_Store
+/src/.DS_Store
