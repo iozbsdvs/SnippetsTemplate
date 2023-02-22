@@ -41,8 +41,27 @@
                         {{ comment_form }}
                         <button type="submit">Добавить</button>
                     </form>
+
                 </div>
             </div>
+
+            <div class="row">
+                <div class="col">
+                    <table border="1">
+                        <tr>
+                            <th>Автор</th>
+                            <th>Комментарий</th>
+                        </tr>
+                        {% for comment in snippet.comments.all %}
+                            <tr>
+                                <td>{{ comment.author.username }}</td>
+                                <td>{{ comment.text }}</td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+            </div>
+
         </div>
     </main>
 {% endblock %}
