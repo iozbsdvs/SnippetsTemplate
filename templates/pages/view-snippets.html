@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load my_tags %}
 {% block content %}
     <div class="container">
         <div class="row">
@@ -18,11 +19,40 @@
 
         <div class="row">
             <div class="col">
+                <form action="" method="get">
+                    <select name="lang">
+                        <option {% if lang == 'py' %} selected {% endif %} value="py">python</option>
+                        <option {% if lang == 'js' %} selected {% endif %} value="js">JavaScript</option>
+                        <option {% if lang == 'cpp' %} selected {% endif %} value="cpp">C++</option>
+                    </select>
+                    <button type="submit">Применить</button>
+                    <a href={% url 'snippets-list' %}>Сброс</a>
+                </form>
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
                 <table class="table table-striped">
                     <thead class="thead-dark">
                     <tr>
                         <th scope="col">ID</th>
-                        <th scope="col">Название</th>
+                        <th scope="col">
+                            {% if sort == 'name' %}
+                                <a href="?sort=-name"> Название </a>
+                            {% elif sort == '-name' %}
+                                <a href="?sort=name"> Название </a>
+                            {% else %}
+                                <a href="?sort=name"> Название </a>
+                            {% endif %}
+
+                            {% if sort == 'name' %}
+                                <i class="fa-solid fa-caret-up"></i>
+                            {% elif sort == '-name' %}
+                                <i class="fa-solid fa-caret-down"></i>
+                            {% endif %}
+                        </th>
+                        <th scope="col">Язык</th>
                         <th scope="col">Дата создания</th>
                         <th scope="col">Автор</th>
                     </tr>
@@ -36,8 +66,9 @@
                                 <a href="{% url 'snippet-delete' snippet.id %}"><i style="color: red"
                                                                                    class="fa-sharp fa-solid fa-trash"></i></a>
                             </td>
+                            <td>{{ snippet.lang }}</td>
                             <td>{{ snippet.creation_date }}</td>
-                            <td>{{ snippet.user }}</td>
+                            <td>{{ snippet.user | is_empty:"аноним" }}</td>
 
                         </tr>
                     {% endfor %}
@@ -50,5 +81,6 @@
             </div>
         </div>
     </div>
-
+    </div>
+    </div>
 {% endblock %}
