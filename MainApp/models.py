@@ -22,3 +22,13 @@ class Comment(models.Model):
     creation_date = models.DateTimeField(auto_now=True)
     author = models.ForeignKey(to=User, on_delete=models.CASCADE)
     snippet = models.ForeignKey(to=Snippet, on_delete=models.CASCADE, related_name='comments')
+
+
+class Lang(models.Model):
+    shortname = models.ForeignKey(to=Snippet, on_delete=models.CASCADE)
+    fullname = models.ForeignKey(to=Snippet, on_delete=models.CASCADE)
+
+
+
+
+
